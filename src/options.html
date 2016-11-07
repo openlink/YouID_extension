@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<!--
+    This file is part of the OpenLink Structured Data Sniffer
+
+    Copyright (C) 2015-2016 OpenLink Software
+
+    This project is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation; only version 2 of the License, dated June 1991.
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>YouID</title>
+    <link type="text/css" href="lib/css/smoothness/jquery-ui.min.css" rel="stylesheet" />	
+    <link type="text/css" href="lib/css/smoothness/theme.css" rel="stylesheet" />	
+    <link type="text/css" href="lib/css/footable-0.1.css" rel="stylesheet" />	
+
+    <script type="text/javascript" src="lib/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-migrate-3.0.0.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/jsuri.js"></script>
+    <script type="text/javascript" src="lib/rdfstore_min.js"></script>
+    <script type="text/javascript" src="browser.js"></script>
+    <script type="text/javascript" src="settings.js"></script>
+    <script type="text/javascript" src="options.js"></script>
+
+    <style type="text/css">
+	body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+
+        .youid_checked { 
+            background-color: aquamarine; 
+            color: blue;
+            font-weight: bold;
+        }
+        .popup { font-size: 14px; }
+        table.verify-tbl {
+          width:580px;
+          table-layout: fixed;
+          font-size: 12px;
+          word-wrap:break-word;
+        }
+        table.verify-tbl > tbody > tr > td:first-child {
+          width: 70px;
+          font-weight: bold;
+        }
+        .bold_text {
+          font-weight: bold;
+        }
+        table.youid-item {
+          width:inherit;
+          table-layout: fixed;
+          word-wrap:break-word;
+        }
+    </style>	
+
+  </head>
+
+  <body>
+
+
+      <div class="popup" id="alert-dlg" title="Info">
+        <pre id="alert-msg">
+        </pre>
+      </div>
+
+      <div class="popup" id="add-dlg" title="Add YouID">
+        <p/>
+        <table style="font-size: 14px;">
+
+         <tr id="uri-link">
+          <td> WebID&nbsp;URI: </td>
+          <td> <input id="uri" style="WIDTH: 480px"> </td>
+         </tr>
+
+        </table>
+      </div>
+
+      <div class="popup" id="verify-dlg" title="Verify YouID">
+        <p/>
+        <p id="verify-msg"></p>
+        <p/>
+        <table class="footable verify-tbl">
+         <tbody id="verify-data">
+         </tbody>
+        </table>
+      </div>
+
+
+    <!-- Tabs -->
+    <div id="tabs" style="WIDTH: 700px">
+      <ul>
+	<li><a href="#tabs-1">YouID&nbsp;List</a></li>
+	<li><a href="#tabs-2">Header&nbsp;Settings</a></li>
+	<li><a href="#tabs-3">About</a></li>
+      </ul>
+	
+        <div id="tabs-1">
+          <table>
+           <tr>
+             <table id="youid_tbl" class="footable">
+               <tbody id="youid_data">
+               </tbody>
+             </table>
+             <table>
+               <tr >
+                 <button style="margin:8px; margin-top:2px;" id="youid_add" class="youid_add">Add</button>
+               </tr>
+             </table>
+           </tr>
+<!--
+           <tr> <p/> </tr>
+           <tr> <hr> </tr>
+           <tr> <p/> </tr>
+--->           
+          </table>
+        </div>
+
+	
+        <div id="tabs-2">
+          <table>
+           <tr>
+             <table id="hdr_tbl" class="footable">
+               <thead>
+                 <tr>
+                   <th width="10px"></th>
+                   <th width="40%">Header</th>
+                   <th width="60%">Value</th>
+                 </tr>
+               </thead>
+               <tbody id="hdr_data">
+               </tbody>
+             </table>
+
+             <table>
+               <tr >
+                 <button style="margin:8px; margin-top:2px;" id="hdr_add" class="hdr_add">Add</button>
+               </tr>
+             </table>
+           </tr>
+          </table>
+
+        </div>
+
+	
+	<div id="tabs-3">
+            <IMG alt="" src="images/icon48.png">
+            <h3>YouID</h3>
+            <p id="ext_ver">Version 0.0.0</p>
+            <p>
+              Browser Extension that enables you switch Identities across 
+              an single HTTPS (TLS) connection without browser restart. 
+            </p>
+            <p>Home Page: <a href="http://youid.openlinksw.com" target="_blank">http://youid.openlinksw.com</a></p>
+            <p>Copyright 2015-2016 <a href="http://www.openlinksw.com" target="_blank">OpenLink Software</a></p>
+        </div>
+    </div>
+    <p/>
+
+    <input id="OK_btn" value=" OK " type="button">
+    <input id="Cancel_btn" value=" Cancel " type="button">
+			
+			
+  </body>
+</html>
+
+

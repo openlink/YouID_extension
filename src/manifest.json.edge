@@ -1,0 +1,32 @@
+{
+  "name": "OpenLink YouID",
+  "short_name": "opl_youid",
+  "author":"OpenLink Software",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "minimum_chrome_version": "18",
+  "description": "YouID selector.",
+  "icons": {
+      "16":  "images/icon20.png",
+      "48":  "images/icon48.png",
+      "128": "images/icon128.png" },
+  "browser_action": {
+    "default_icon": "images/icon20.png",
+    "default_title": "YouID",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "webRequest", 
+    "webRequestBlocking",
+    "tabs", 
+    "http://*/",
+    "https://*/",
+    "*://*/*", 
+    "file:///*/*"
+  ]
+}
