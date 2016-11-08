@@ -502,12 +502,14 @@ function verify_ID(uri, on_success)
                $('#verify-data').append("<tr id='row'><td>Exponent</td><td>"+youid.exp+"</td></tr>");
                if (youid.delegate)
                  $('#verify-data').append("<tr id='row'><td>Delegate</td><td>"+youid.delegate+"</td></tr>");
+/***
                if (youid.acl.length>0) {
                  var s = "";
                  for(var i=0; i<youid.acl.length; i++)
                    s += "<div>"+youid.acl[i]+"</div>";
                  $('#verify-data').append("<tr id='row'><td>ACL</td><td>"+s+"</td></tr>");
                }
+***/
                if (youid.pim)
                  $('#verify-data').append("<tr id='row'><td>Storage</td><td>"+youid.pim+"</td></tr>");
                if (youid.inbox)

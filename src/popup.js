@@ -39,6 +39,7 @@ function create_pulldown_item(youid, sel)
      var href = youid.inbox?'<a href="'+youid.inbox+'" class="uri">'+youid.inbox+'</a>' : '';
      det += '<tr class="dtext"><td>Inbox</td><td>'+href+'</td></tr> ';
   }
+/***
   if (youid.acl && youid.acl.length>0) {
      var val = "" 
      for(var i=0; i< youid.acl.length; i++) {
@@ -47,7 +48,7 @@ function create_pulldown_item(youid, sel)
      }
      det += '<tr class="dtext"><td>ACL</td><td>'+val+'</td></tr> ';
   }
-
+***/
 
   var item = '\
      <table '+cls+' id="data" value="'+mdata+'" style="width:520px; table-layout: fixed;"> \

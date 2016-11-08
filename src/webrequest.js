@@ -53,7 +53,7 @@ if (Browser.isChromeAPI)
             }
           }
           
-          return {requestHeaders: details.requestHeaders};
+          return {"requestHeaders": details.requestHeaders};
         },
         {urls: ["<all_urls>"]},
         ["blocking", "requestHeaders"]);
