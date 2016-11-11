@@ -7,7 +7,7 @@ $(document).ready(function()
 
   gPref = new Settings();
 
-  $('#ext_ver').text('ver: '+ Browser.api.runtime.getManifest().version);
+  $('#ext_ver').text('version: '+ Browser.api.runtime.getManifest().version);
 
   load_popup();
 
