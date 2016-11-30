@@ -111,6 +111,8 @@ function load_popup()
         }
     });
 
+    $('#pulldown_list').append('<tr><td><a href="options.html" target="_blank">Add&nbspWebID </a></td></tr>');
+
     $('.det_btn').click(click_det);
     $('.youid_chk').click(select_pulldown_item);
     $('.uri').click(click_uri);

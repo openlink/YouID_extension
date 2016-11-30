@@ -53,7 +53,7 @@ body.youid {
 div.content_scroll {
     overflow: auto;
     width: 550px;
-    height: 480px; 
+    height: 500px; 
     border: none;
 }
 
@@ -75,11 +75,4 @@ div.content_scroll {
     font-size: 10px;
 }
 
-.add_webid {
-    position: absolute;
-    left: 230px;
-    bottom: 3px;
-    color: gray;
-    font-size: 12px;
-}
 
