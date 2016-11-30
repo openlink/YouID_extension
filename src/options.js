@@ -394,7 +394,6 @@ function verify_ID(uri, on_success)
 {
 // http://id.myopenlink.net/DAV/home/KingsleyUyiIdehen/Public/kingsley.ttl#this
 // https://s3.amazonaws.com/webid-sandbox/Profile/Basic-Identity-Claims-And-Profile-Document.ttl#i
-//
 //  uri = "http://id.myopenlink.net/public_home/smalinin/Public/YouID/IDcard_Twitter_160927_202756/160927_202756_profile.ttl#identity";
 //  uri = "http://dbpedialite.org/titles/Lisp_%28programming_language%29";
 
@@ -406,9 +405,17 @@ function verify_ID(uri, on_success)
   });
 
   var get_url = uri + ((/\?/).test(uri) ? "&" : "?") + (new Date()).getTime();
-//  var get_url = uri;
 
-  $.get(get_url, function(data, status){
+
+  jQuery.ajaxSetup({
+     dataType: "text",
+     headers:{'Accept': 'text/turtle;q=1.0,application/ld+json;q=0.5,text/plain;q=0.2,text/html;q=0.5,*/*;q=0.1'},
+     cache: false,
+  });
+
+  jQuery.get(get_url, 
+      
+      function(data, status){
 
       store.load('text/n3', data, {documentIRI:baseURI}, function(err, results) {
          if (err) {
