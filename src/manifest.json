@@ -18,11 +18,8 @@
   "background": {
     "page": "background.html"
   },
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": true
-  },
-"permissions": [
+  "options_page": "options.html",
+  "permissions": [
     "webRequest", 
     "webRequestBlocking",
     "tabs", 
