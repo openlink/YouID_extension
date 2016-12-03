@@ -69,6 +69,10 @@ table.verify-tbl > tbody > tr > td:first-child {
 }
 
 
+body {
+    background-color: white;
+    font: 62.5% "Trebuchet MS", sans-serif;
+}
 
 body.youid {
     width: 655px;

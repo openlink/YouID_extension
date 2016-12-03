@@ -329,8 +329,8 @@ function add_YouID()
 {
   $( "#add-dlg" ).dialog({
       resizable: false,
-      width: 600,
-      height:160,
+      width: 620,
+      height:170,
       modal: true,
       buttons: {
         "OK": function() {
@@ -355,7 +355,7 @@ function showVerifyDlg(success, youid, msg, verify_data)
 
   $( "#verify-dlg" ).dialog({
       resizable: false,
-      width: 600,
+      width: 630,
       height:400,
       modal: true,
       buttons: {

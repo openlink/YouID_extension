@@ -70,9 +70,6 @@ YouID_Loader.prototype = {
 //  var baseURI = "https://s3.amazonaws.com/webid-sandbox/Profile/Basic-Identity-Claims-And-Profile-Document.ttl";
     var self = this;
     var baseURI = new Uri(uri).setAnchor("").toString();
-    var store = new rdfstore.Store(function(err, store) {
-      // the new store is ready
-    });
 
     var get_url = uri + ((/\?/).test(uri) ? "&" : "?") + (new Date()).getTime();
 
@@ -87,12 +84,15 @@ YouID_Loader.prototype = {
       
       function(data, status){
 
+       rdfstore.Store.yieldFrequency(50);
+       rdfstore.create(function(err, store) {
+
         store.load('text/n3', data, {documentIRI:baseURI}, function(err, results) {
           if (err) {
             self.info_dlg("Could not parse profile\n\n"+err+"\n\n Profile data:\n\n"+data);
             return;
           }
-          var query = self.verify_query.replace(/%URI%/g, uri);
+          var query = self.verify_query; //??-- .replace(/%URI%/g, uri);
           try {
              store.execute(query, function(err, results) {
              // process results
@@ -215,6 +215,9 @@ YouID_Loader.prototype = {
              self.info_dlg("Error:"+e);
           }
         });
+
+       });
+
         
       }, "text").fail(function(msg) {
         self.info_dlg("Could not load data from: "+uri+"\nError: "+msg.statusText);
