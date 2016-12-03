@@ -36,24 +36,50 @@
   word-wrap:break-word;
  }
 
+
 .pulldown_checked { 
     background-color: aquamarine; 
 /*    color: blue;*/
     font-weight: bold;
+     width:620px; 
+     table-layout: fixed;
+}
+
+.pulldown_unchecked { 
+    font-weight: bold;
+     width:620px; 
+     table-layout: fixed;
+}
+
+.dettable {
+     width:590px; 
+     table-layout: fixed;
+}
+
+table.verify-tbl {
+  width:580px;
+  table-layout: fixed;
+  font-size: 12px;
+  word-wrap:break-word;
+}
+
+table.verify-tbl > tbody > tr > td:first-child {
+  width: 70px;
+  font-weight: bold;
 }
 
 
 
 body.youid {
-    width: 555px;
-    height: 516px;
+    width: 655px;
+    height: 580px;
 }
 
 
 div.content_scroll {
     overflow: auto;
-    width: 550px;
-    height: 500px; 
+    width: 650px;
+    height: 565px; 
     border: none;
 }
 

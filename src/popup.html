@@ -26,23 +26,58 @@
         <script type="text/javascript" src="lib/jquery-3.1.0.min.js"></script>
         <script type="text/javascript" src="lib/jquery-migrate-3.0.0.min.js"></script>
         <script type="text/javascript" src="lib/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="lib/jsuri.js"></script>
+        <script type="text/javascript" src="lib/rdfstore_min.js"></script>
 
         <script type="text/javascript" src="browser.js"></script>
         <script type="text/javascript" src="settings.js"></script>
+        <script type="text/javascript" src="utils.js"></script>
         <script type="text/javascript" src="popup.js"></script>
 
         <link rel="stylesheet" href="popup.css" />
 
     </head>
-    <body>
-    </body>
 
     <body class="youid">
+
+      <div class="popup" id="alert-dlg" title="Info">
+        <p id="alert-msg1">
+        <p id="alert-msg2">
+        </p>
+      </div>
+
+      <div class="popup" id="add-dlg" title="Add YouID">
+        <p/>
+        <table style="font-size: 14px;">
+
+         <tr id="uri-link">
+          <td> WebID&nbsp;URI: </td>
+          <td> <input id="uri" style="WIDTH: 480px"> </td>
+         </tr>
+
+        </table>
+      </div>
+
+      <div class="popup" id="verify-dlg" title="Verify YouID">
+        <p/>
+        <p id="verify-msg"></p>
+        <p/>
+        <table class="footable verify-tbl">
+         <tbody id="verify-data">
+         </tbody>
+        </table>
+      </div>
+
+
 
       <div id="pulldown" class="content_scroll">
        <table class="footable">
         <tbody id="pulldown_list" ></tbody>
        </table>
+       <table class="footable">
+         <tr><td><a href="#add_youid">Add&nbspWebID </a></td></tr>
+       </table>
+
       </div>
 
 
