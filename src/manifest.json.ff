@@ -8,7 +8,8 @@
   "description": "YouID selector.",
   "applications": {
     "gecko": {
-      "id": "youid@openlinksw.com"
+      "id": "youid@openlinksw.com",
+      "strict_min_version": "49.0"
     }
   },
   "icons": {

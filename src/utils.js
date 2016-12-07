@@ -19,6 +19,7 @@
  */
  
 YouID_Loader = function (info_dlg) {
+  this.pass = 0;
   this.info_dlg = info_dlg;
   this.verify_query = '\
   PREFIX foaf:<http://xmlns.com/foaf/0.1/> \
@@ -73,28 +74,42 @@ YouID_Loader.prototype = {
 
     var get_url = uri + ((/\?/).test(uri) ? "&" : "?") + (new Date()).getTime();
 
-
     jQuery.ajaxSetup({
        dataType: "text",
        headers:{'Accept': 'text/turtle;q=1.0,application/ld+json;q=0.5,text/plain;q=0.2,text/html;q=0.5,*/*;q=0.1'},
        cache: false,
     });
 
-    jQuery.get(get_url, 
-      
-      function(data, status){
+    jQuery.get(get_url, function(data, status){
+        self.pass = 0;
+        self.load_and_exec(baseURI, data, callback);
+    }, "text").fail(function(msg) {
+        self.info_dlg("Could not load data from: "+uri+"\nError: "+msg.statusText);
+    });
+  },
 
-       rdfstore.Store.yieldFrequency(50);
-       rdfstore.create(function(err, store) {
+  load_and_exec : function(baseURI, data, callback) {
+
+      var self = this;
+      rdfstore.Store.yieldFrequency(15);
+      rdfstore.create(function(err, store) {
 
         store.load('text/n3', data, {documentIRI:baseURI}, function(err, results) {
           if (err) {
             self.info_dlg("Could not parse profile\n\n"+err+"\n\n Profile data:\n\n"+data);
             return;
           }
-          var query = self.verify_query; //??-- .replace(/%URI%/g, uri);
+          var query = self.verify_query;
+
           try {
              store.execute(query, function(err, results) {
+               if (!err && (results && results.length==0) && self.pass < 3) {
+                 // try again;
+                 self.pass++;
+                 self.exec_query(baseURI, data, callback);
+                 return; 
+               }
+
              // process results
                if (err || (results && results.length==0)) {
                  self.info_dlg("Could not extract profile data\n"+(err?err:""));
@@ -215,12 +230,7 @@ YouID_Loader.prototype = {
              self.info_dlg("Error:"+e);
           }
         });
-
-       });
-
-        
-      }, "text").fail(function(msg) {
-        self.info_dlg("Could not load data from: "+uri+"\nError: "+msg.statusText);
-    });
+      });
   }
+
 }
