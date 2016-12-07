@@ -106,7 +106,7 @@ YouID_Loader.prototype = {
                if (!err && (results && results.length==0) && self.pass < 3) {
                  // try again;
                  self.pass++;
-                 self.exec_query(baseURI, data, callback);
+                 self.load_and_exec(baseURI, data, callback);
                  return; 
                }
 
