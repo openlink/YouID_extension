@@ -19,9 +19,9 @@
 -->
     <head>
 	<meta charset="UTF-8">
-        <link type="text/css" href="lib/css/smoothness/jquery-ui.min.css" rel="stylesheet" />	
-        <link type="text/css" href="lib/css/smoothness/theme.css" rel="stylesheet" />	
-        <link type="text/css" href="lib/css/footable-0.1.css" rel="stylesheet" />	
+        <link type="text/css" href="lib/css/smoothness/jquery-ui.min.css" rel="stylesheet" />
+        <link type="text/css" href="lib/css/smoothness/theme.css" rel="stylesheet" />
+        <link type="text/css" href="lib/css/footable-0.1.css" rel="stylesheet" />
 
         <script type="text/javascript" src="lib/jquery-3.1.0.min.js"></script>
         <script type="text/javascript" src="lib/jquery-migrate-3.0.0.min.js"></script>
@@ -31,6 +31,7 @@
 
         <script type="text/javascript" src="browser.js"></script>
         <script type="text/javascript" src="settings.js"></script>
+        <script type="text/javascript" src="youid_view.js"></script>
         <script type="text/javascript" src="utils.js"></script>
         <script type="text/javascript" src="popup.js"></script>
 
@@ -61,7 +62,7 @@
       <div class="popup" id="verify-dlg" title="Verify YouID">
         <p/>
          <div id="verify_progress">
-          <img src="images/throbber.gif" width="16" />Loading data...
+          <img src="images/throbber.gif" width="16" />&nbsp;&nbsp;&nbsp;&nbsp;Loading & Evaluating WebID-Profile Document
          </div>
         <p id="verify-msg"></p>
         <p/>
@@ -75,7 +76,7 @@
 
       <div id="pulldown" class="content_scroll">
        <table class="footable">
-        <tbody id="pulldown_list" ></tbody>
+        <tbody id="youid_list" ></tbody>
        </table>
        <table class="footable">
          <tr><td><a href="#add_youid">Add&nbspWebID </a></td></tr>

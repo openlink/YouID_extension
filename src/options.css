@@ -18,31 +18,51 @@
  *
  */
 
-var gPref = null;
-var $ = jQuery;
-var v_youid = null;
 
+.bold_text {
+  font-weight: bold;
+ }
 
-$(document).ready(function()
-{
-  $("#alert-dlg").hide();
-  $("#add-dlg").hide();
-  $("#verify-dlg").hide();
+.itext {
+  font-style: italic;
+  font-size: 12px;
+  word-wrap:break-word;
+ }
+.ltext {
+  font-size: 14px;
+ }
+.dtext {
+  font-size: 12px;
+  word-wrap:break-word;
+ }
 
-  gPref = new Settings();
-  v_youid = new YouId_View(true);
-
-  $('#ext_ver').text('version: '+ Browser.api.runtime.getManifest().version);
-
-  $('a[href=#add_youid]').click(function(e){v_youid.click_add_youid(e);});
-
-  load_popup();
-
-});
-
-
-function load_popup()
-{
-    v_youid.load_youid_list();
+.youid_item { 
+    font-weight: bold;
+    width:650px; 
+    table-layout: fixed;
 }
+
+
+.youid_checked { 
+    background-color: aquamarine; 
+}
+
+table.verify-tbl {
+  width:580px;
+  table-layout: fixed;
+  font-size: 12px;
+  word-wrap:break-word;
+}
+
+table.verify-tbl > tbody > tr > td:first-child {
+  width: 70px;
+  font-weight: bold;
+}
+
+
+.dettable {
+     width:590px; 
+     table-layout: fixed;
+}
+
 

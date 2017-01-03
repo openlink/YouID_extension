@@ -18,7 +18,8 @@
  *
  */
 
-YouID_Loader = function (info_dlg) {
+YouID_Loader = function (info_dlg, row) {
+  this.row = row;
   this.pass = 0;
   this.info_dlg = info_dlg;
   this.verify_query = '\
@@ -231,7 +232,7 @@ YouID_Loader.prototype = {
                }
 
                if (callback)
-                 callback(success, youid, msg, verify_data);
+                 callback(success, youid, msg, verify_data, self.row);
              });
           } catch(e) {
              console.log(e);
