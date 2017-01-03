@@ -251,6 +251,7 @@ function emptyYouIdLst()
   var data = $('#youid_data>tr').remove();
 }
 
+
 function youid_select(e) {
   var checked = $(e.target).is(':checked');
   if (checked) {
@@ -275,6 +276,7 @@ function youid_select(e) {
   return true;
 }
 
+
 function youid_del(e) {
   //get the row we clicked on
   var row = $(this).parents('tr:first');
@@ -295,6 +297,7 @@ function load_youid_list(pref_user, params)
   if (params.length == 0)
     addYouIdItem(false,"");
 }
+
 
 function save_youid_data()
 {
@@ -335,48 +338,72 @@ function add_YouID()
       buttons: {
         "OK": function() {
           var uri = $('#uri').val().trim();
-          var loader = new YouID_Loader(showInfo);
-          loader.verify_ID(uri, showVerifyDlg);
-          $(this).dialog( "close" );
+          $(this).dialog( "destroy" );
+          add_YouID_exec(uri);
         },
         Cancel: function() {
-          $(this).dialog( "close" );
+          $(this).dialog( "destroy" );
         }
       }
   });
 }
 
-
-function showVerifyDlg(success, youid, msg, verify_data) 
+function add_YouID_exec(uri) 
 {
-  $("#verify-msg").prop("textContent",msg); 
-  $('#verify-data #row').remove();
-  $('#verify-data').append(verify_data);
-
   $( "#verify-dlg" ).dialog({
       resizable: false,
       width: 630,
       height:400,
-      modal: true,
-      buttons: {
-        "OK": function() {
+      modal: true
+  });
+  $("#verify_progress").show();
+  $("#verify-msg").prop("textContent",""); 
+  $('#verify-data #row').remove();
+  
+  var loader = new YouID_Loader(showInfo);
+  loader.verify_ID(uri, showVerifyDlg);
+}
+
+
+function showVerifyDlg(success, youid, msg, verify_data) 
+{
+  if (!$("#verify-dlg").dialog( "isOpen" )) {
+    $("#verify-dlg").dialog( "destroy" );
+    return;
+  }
+
+  $("#verify_progress").hide();
+  $("#verify-msg").prop("textContent",msg); 
+  $('#verify-data #row').remove();
+  $('#verify-data').append(verify_data);
+
+  $("#verify-dlg").dialog( "option", "buttons", 
+    [
+      {
+         text: "OK",
+        click: function() {
           if (success) {
             addYouIdItem(false, youid)
           }
-          $(this).dialog( "close" );
-        },
-        Cancel: function() {
-          $(this).dialog( "close" );
+          $(this).dialog( "destroy" );
+        }
+      },
+      {
+         text: "Cancel",
+        click: function() {
+          $(this).dialog( "destroy" );
         }
       }
-  });
-
+    ]
+  );
 }
 
 
 
 function showInfo(msg)
 {
+  $("#verify-dlg").dialog( "destroy" );
+
   $("#alert-msg").prop("textContent",msg); 
   $("#alert-dlg" ).dialog({
     resizable: false,

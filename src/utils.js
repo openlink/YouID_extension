@@ -17,7 +17,7 @@
  *  51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  */
- 
+
 YouID_Loader = function (info_dlg) {
   this.pass = 0;
   this.info_dlg = info_dlg;
@@ -107,12 +107,20 @@ YouID_Loader.prototype = {
                  // try again;
                  self.pass++;
                  self.load_and_exec(baseURI, data, callback);
-                 return; 
+                 return;
                }
 
              // process results
                if (err || (results && results.length==0)) {
-                 self.info_dlg("Could not extract profile data\n"+(err?err:""));
+                 if (err)
+                   self.info_dlg("Could not extract profile data\n"+(err?err:""));
+                 else
+                   self.info_dlg("Could not extract profile data.\n"+
+                                 "At least one of the following is missing from the profile\n"+
+                                 "document associated with the input WebID:"+
+                                 "{webid-profile-doc-url} foaf:primaryTopic ?webid \n"+
+                                 " OR \n"+
+                                 "{webid-profile-doc-url} schema:mainEntity ?webid .");
                  return;
                }
 
@@ -188,7 +196,7 @@ YouID_Loader.prototype = {
                if (youid.id && youid.pubkey && youid.mod && youid.exp && youid.name) {
                  msg = "Successfully verified.";
                  success = true;
-               } else { 
+               } else {
                  msg = "Failed, could not verify WebID.";
                  success = false;
                }

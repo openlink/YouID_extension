@@ -253,18 +253,35 @@ function click_add_youid()
       buttons: {
         "OK": function() {
           var uri = $('#uri').val().trim();
-          var loader = new YouID_Loader(showInfo);
-          loader.verify_ID(uri, showVerifyDlg);
-          $(this).dialog( "close" );
+          $(this).dialog( "destroy" );
+          add_youid_exec(uri);
         },
         Cancel: function() {
-          $(this).dialog( "close" );
+          $(this).dialog( "destroy" );
         }
       }
   });
 
   return false;
 }
+
+
+function add_youid_exec(uri) 
+{
+  $( "#verify-dlg" ).dialog({
+      resizable: false,
+      width: 630,
+      height:400,
+      modal: true
+  });
+  $("#verify_progress").show();
+  $("#verify-msg").prop("textContent",""); 
+  $('#verify-data #row').remove();
+
+  var loader = new YouID_Loader(showInfo);
+  loader.verify_ID(uri, showVerifyDlg);
+}
+
 
 
 function save_youid_data()
@@ -298,29 +315,38 @@ function save_youid_data()
 
 function showVerifyDlg(success, youid, msg, verify_data) 
 {
+  if (!$("#verify-dlg").dialog( "isOpen" )) {
+    $("#verify-dlg").dialog( "destroy" );
+    return;
+  }
+
+  $("#verify_progress").hide();
   $("#verify-msg").prop("textContent",msg); 
   $('#verify-data #row').remove();
   $('#verify-data').append(verify_data);
 
-  $( "#verify-dlg" ).dialog({
-      resizable: false,
-      width: 630,
-      height:400,
-      modal: true,
-      buttons: {
-        "OK": function() {
+  $("#verify-dlg").dialog( "option", "buttons", 
+    [
+      {
+         text: "OK",
+        click: function() {
           if (success) {
             addYouIdItem(youid, false);
             save_youid_data();
+
+            addYouIdItem(false, youid)
           }
-          $(this).dialog( "close" );
-        },
-        Cancel: function() {
-          $(this).dialog( "close" );
+          $(this).dialog( "destroy" );
+        }
+      },
+      {
+         text: "Cancel",
+        click: function() {
+          $(this).dialog( "destroy" );
         }
       }
-  });
-
+    ]
+  );
 }
 
 function showYN(msg1, msg2, callback)
@@ -350,6 +376,8 @@ function showYN(msg1, msg2, callback)
 
 function showInfo(msg)
 {
+  $("#verify-dlg").dialog( "destroy" );
+
   $("#alert-msg1").prop("textContent",msg); 
   $("#alert-dlg" ).dialog({
     resizable: false,
