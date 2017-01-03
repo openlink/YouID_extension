@@ -194,6 +194,11 @@ YouId_View.prototype = {
 
       var tbl = $(e.target).parents('table#data');
       $(tbl).toggleClass("youid_checked", true);
+
+      if (this.is_popup) {
+        this.save_youid_data();
+        window.close();
+      }
     }
     else {
       var tbl = $(e.target).parents('table#data');
