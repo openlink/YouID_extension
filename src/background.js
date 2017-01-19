@@ -18,6 +18,8 @@
  *
  */
 
+var gPref = new Settings();
+
 Browser.api.browserAction.onClicked.addListener(
    function(tab) 
    {
@@ -27,3 +29,10 @@ Browser.api.browserAction.onClicked.addListener(
 
 
 
+Browser.api.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    if (request.getTargetData) {
+      var v = gPref.getValue("ext.youid.pref.id");
+      sendResponse({webid: v});
+    }
+  });
