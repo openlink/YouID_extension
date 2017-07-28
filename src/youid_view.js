@@ -34,12 +34,12 @@ YouId_View.prototype = {
 
     var det = "";
     if (youid.exp)
-       det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/cert#exponent" class="uri">Exponent</a></td><td>'+youid.exp+'</td></tr> ';
+       det += '<tr class="dtext"><td valign="top"><a href="http://www.w3.org/ns/auth/cert#exponent" class="uri">Exponent</a></td><td>'+youid.exp+'</td></tr> ';
     if (youid.mod)
-       det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/cert#modulus" class="uri">Modulus</a></td><td>'+youid.mod+'</td></tr> ';
+       det += '<tr class="dtext"><td valign="top"><a href="http://www.w3.org/ns/auth/cert#modulus" class="uri">Modulus</a></td><td>'+youid.mod+'</td></tr> ';
     if (youid.delegate) {
        var href = youid.delegate?'<a href="'+youid.delegate+'" class="uri">'+youid.delegate+'</a>' : '';
-       det += '<tr class="dtext"><td><a href="http://www.openlinksw.com/schemas/cert#hasIdentityDelegate" class="uri">Delegate</a></td><td>'+href+'</td></tr> ';
+       det += '<tr class="dtext"><td valign="top"><a href="http://www.openlinksw.com/schemas/cert#hasIdentityDelegate" class="uri">Delegate</a></td><td>'+href+'</td></tr> ';
     }
     if (youid.pim) {
        var href = youid.pim?'<a href="'+youid.pim+'" class="uri">'+youid.pim+'</a>' : '';
@@ -47,7 +47,7 @@ YouId_View.prototype = {
     }
     if (youid.inbox) {
        var href = youid.inbox?'<a href="'+youid.inbox+'" class="uri">'+youid.inbox+'</a>' : '';
-       det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/ldp#inbox" class="uri">Inbox</a></td><td>'+href+'</td></tr> ';
+       det += '<tr class="dtext"><td valign="top"><a href="http://www.w3.org/ns/ldp#inbox" class="uri">Inbox</a></td><td>'+href+'</td></tr> ';
     }
 /***
   if (youid.acl && youid.acl.length>0) {
@@ -65,7 +65,7 @@ YouId_View.prototype = {
         var href = youid.behalfOf[i]?'<a href="'+youid.behalfOf[i]+'" class="uri">'+youid.behalfOf[i]+'</a>' : '';
         val += '<div>'+href+'</div>';
       }
-      det += '<tr class="dtext"><td><a href="http://www.openlinksw.com/schemas/cert#onBehalfOf" class="uri">OnBehalfOf</a></td><td>'+val+'</td></tr> ';
+      det += '<tr class="dtext"><td valign="top"><a href="http://www.openlinksw.com/schemas/cert#onBehalfOf" class="uri">OnBehalfOf</a></td><td>'+val+'</td></tr> ';
     }
 
     if (youid.foaf_knows && youid.foaf_knows.length>0) {
@@ -74,7 +74,7 @@ YouId_View.prototype = {
         var href = youid.foaf_knows[i]?'<a href="'+youid.foaf_knows[i]+'" class="uri">'+youid.foaf_knows[i]+'</a>' : '';
         val += '<div>'+href+'</div>';
       }
-      det += '<tr class="dtext"><td><a href="http://xmlns.com/foaf/0.1/knows" class="uri">Knows</a></td><td>'+val+'</td></tr> ';
+      det += '<tr class="dtext"><td valign="top"><a href="http://xmlns.com/foaf/0.1/knows" class="uri">Knows</a></td><td>'+val+'</td></tr> ';
     }
 
     if (youid.acl && youid.acl.length>0) {
@@ -83,7 +83,7 @@ YouId_View.prototype = {
         var href = youid.acl[i]?'<a href="'+youid.acl[i]+'" class="uri">'+youid.acl[i]+'</a>' : '';
         val += '<div>'+href+'</div>';
       }
-      det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/acl#delegates" class="uri">Acl</a></td><td>'+val+'</td></tr> ';
+      det += '<tr class="dtext"><td valign="top"><a href="http://www.w3.org/ns/auth/acl#delegates" class="uri">Acl</a></td><td>'+val+'</td></tr> ';
     }
 
     var item = '\
@@ -109,7 +109,7 @@ YouId_View.prototype = {
          <td></td> \
          <td> \
            <table class="dettable" > \
-             <tr class="dtext"><td style="width:70px"><a href="http://www.w3.org/ns/auth/cert#key" class="uri">PubKey</a></td><td >'+pubkey_uri+'</td> \
+             <tr class="dtext"><td valign="top" style="width:70px"><a href="http://www.w3.org/ns/auth/cert#key" class="uri">PubKey</a></td><td >'+pubkey_uri+'</td> \
              </tr> '+det+' \
            </table> \
          </td> \
