@@ -28,6 +28,13 @@
     "page": "options.html",
     "open_in_tab": true
   },
+  "content_scripts": [
+    {
+      "matches": ["file:///*/*","*://*/*"],
+      "js": ["browser.js","content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "permissions": [
     "webRequest", 
     "webRequestBlocking",

@@ -332,6 +332,7 @@ YouId_View.prototype = {
 
     this.gPref.setValue('ext.youid.pref.list', JSON.stringify(list, undefined, 2));
     this.gPref.setValue('ext.youid.pref.id', JSON.stringify(pref_youid, undefined, 2));
+
   },
 
 

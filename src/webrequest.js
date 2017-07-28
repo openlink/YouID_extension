@@ -68,4 +68,21 @@ if (Browser.isChromeAPI)
         sendResponse({webid: v});
       }
     });
+
+  Browser.api.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+      if (request.getWebId) {
+        var pref_youid;
+        try {
+          var v = setting.getValue("ext.youid.pref.id");
+          if (v)
+            pref_youid = JSON.parse(v);
+        } catch(e){}
+
+        sendResponse({webid: pref_youid.id});
+      }
+      else
+        sendResponse({});  // stop
+  });
+
+
 }

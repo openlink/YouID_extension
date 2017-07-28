@@ -20,6 +20,13 @@
     "persistent": true
   },
   "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["file:///*/*","*://*/*"],
+      "js": ["browser.js","content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "permissions": [
     "webRequest", 
     "webRequestBlocking",
