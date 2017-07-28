@@ -29,6 +29,8 @@ $(document).ready(function()
   $("#add-dlg").hide();
   $("#verify-dlg").hide();
 
+  $('#prefs_btn').click(Prefs_exec);
+
   gPref = new Settings();
   v_youid = new YouId_View(true);
 
@@ -40,6 +42,12 @@ $(document).ready(function()
 
 });
 
+
+function Prefs_exec()
+{
+  Browser.openTab("options.html")
+  return false;
+}
 
 function load_popup()
 {
