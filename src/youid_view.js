@@ -83,7 +83,7 @@ YouId_View.prototype = {
         var href = youid.acl[i]?'<a href="'+youid.acl[i]+'" class="uri">'+youid.acl[i]+'</a>' : '';
         val += '<div>'+href+'</div>';
       }
-      det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/acl#delegates">Knows</a></td><td>'+val+'</td></tr> ';
+      det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/acl#delegates">Acl</a></td><td>'+val+'</td></tr> ';
     }
 
     var item = '\
