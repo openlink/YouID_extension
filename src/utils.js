@@ -57,6 +57,7 @@ YouID_Loader = function (info_dlg, row) {
        OPTIONAL { ?webid acl:delegates ?acl_delegates} \
        OPTIONAL { ?webid pim:storage ?pim_store } \
        OPTIONAL { ?webid ldp:inbox ?inbox } \
+       OPTIONAL { ?webid foaf:knows ?knows } \
     }';
 };
 
@@ -127,14 +128,15 @@ YouID_Loader.prototype = {
 
                var youid = { id: null, name: null, pubkey: null,
                      mod: null, exp: null, delegate: null,
-                     acl: [], behalfOf: [],
+                     acl: [], behalfOf: [], foaf_knows:[],
                      pim: null, inbox: null };
 
-               var url, acl_delegates, behalfOf;
+               var url, acl_delegates, behalfOf, foaf_knows;
                var schema_name, foaf_name, rdfs_name, skos_prefLabel, skos_altLabel;
 
                acl_delegates = {};
                behalfOf = {};
+               foaf_knows = {};
 
                for(var i=0; i < results.length; i++) {
                  var r = results[i];
@@ -147,6 +149,8 @@ YouID_Loader.prototype = {
                    acl_delegates[r.acl_delegates.value] = 1;
                  if (r.behalfOf)
                    behalfOf[r.behalfOf.value] = 1;
+                 if (r.knows)
+                   foaf_knows[r.knows.value] = 1;
                  if (r.pim_store)
                    youid.pim = r.pim_store.value;
                  if (r.inbox)
@@ -193,6 +197,10 @@ YouID_Loader.prototype = {
                for(var i=0; i<_tmp.length; i++)
                  youid.behalfOf.push(_tmp[i]);
 
+               var _tmp = Object.keys(foaf_knows);
+               for(var i=0; i<_tmp.length; i++)
+                 youid.foaf_knows.push(_tmp[i]);
+
                var msg, success, verify_data;
                if (youid.id && youid.pubkey && youid.mod && youid.exp && youid.name) {
                  msg = "Successfully verified.";
@@ -202,7 +210,8 @@ YouID_Loader.prototype = {
                  success = false;
                }
 
-               verify_data = "";
+               verify_data = "<table class='footable verify-tbl'><tbody id='verify-data'>";
+
                verify_data += "<tr id='row'><td>WebID</td><td>"+youid.id+"</td></tr>";
                verify_data += "<tr id='row'><td>Name</td><td>"+youid.name+"</td></tr>";
                verify_data += "<tr id='row'><td>PubKey</td><td>"+youid.pubkey+"</td></tr>";
@@ -210,14 +219,6 @@ YouID_Loader.prototype = {
                verify_data += "<tr id='row'><td>Exponent</td><td>"+youid.exp+"</td></tr>";
                if (youid.delegate)
                  verify_data += "<tr id='row'><td>Delegate</td><td>"+youid.delegate+"</td></tr>";
-/***
-               if (youid.acl.length>0) {
-                 var s = "";
-                 for(var i=0; i<youid.acl.length; i++)
-                   s += "<div>"+youid.acl[i]+"</div>";
-                 $('#verify-data').append("<tr id='row'><td>ACL</td><td>"+s+"</td></tr>");
-               }
-***/
 
                if (youid.pim)
                  verify_data += "<tr id='row'><td>Storage</td><td>"+youid.pim+"</td></tr>";
@@ -230,6 +231,20 @@ YouID_Loader.prototype = {
                    s += "<div>"+youid.behalfOf[i]+"</div>";
                  verify_data += "<tr id='row'><td>OnBehalfOf</td><td>"+s+"</td></tr>";
                }
+               if (youid.foaf_knows.length>0) {
+                 var s = "";
+                 for(var i=0; i<youid.foaf_knows.length; i++)
+                   s += "<div>"+youid.foaf_knows[i]+"</div>";
+                 verify_data += "<tr id='row'><td>Knows</td><td>"+s+"</td></tr>";
+               }
+               if (youid.acl.length>0) {
+                 var s = "";
+                 for(var i=0; i<youid.acl.length; i++)
+                   s += "<div>"+youid.acl[i]+"</div>";
+                 verify_data += "<tr id='row'><td>ACL</td><td>"+s+"</td></tr>";
+               }
+
+               verify_data += "</tbody></table>";
 
                if (callback)
                  callback(success, youid, msg, verify_data, self.row);

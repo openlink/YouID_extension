@@ -19,7 +19,6 @@
     "scripts": ["browser.js","settings.js","webrequest.js"],
     "persistent": true
   },
-  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": ["file:///*/*","*://*/*"],
@@ -27,6 +26,8 @@
       "run_at": "document_idle"
     }
   ],
+  "options_page": "options.html",
+
   "permissions": [
     "webRequest", 
     "webRequestBlocking",

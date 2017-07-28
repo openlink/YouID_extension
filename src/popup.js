@@ -34,7 +34,7 @@ $(document).ready(function()
 
   $('#ext_ver').text('version: '+ Browser.api.runtime.getManifest().version);
 
-  $('a[href=#add_youid]').click(function(e){v_youid.click_add_youid(e);});
+  $('a[href="#add_youid"]').click(function(e){v_youid.click_add_youid(e);});
 
   load_popup();
 

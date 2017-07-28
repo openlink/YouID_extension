@@ -33,7 +33,7 @@ $(function(){
 
         v_youid = new YouId_View(false);
 
-        $('a[href=#add_youid]').click(function(e){v_youid.click_add_youid(e);});
+        $('a[href="#add_youid"]').click(function(e){v_youid.click_add_youid(e);});
 
 
         $('#hdr_add').click(hdr_add);

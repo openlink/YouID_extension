@@ -34,20 +34,20 @@ YouId_View.prototype = {
 
     var det = "";
     if (youid.exp)
-       det += '<tr class="dtext"><td>Exponent</td><td>'+youid.exp+'</td></tr> ';
+       det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/cert#exponent">Exponent</a></td><td>'+youid.exp+'</td></tr> ';
     if (youid.mod)
-       det += '<tr class="dtext"><td>Modulus</td><td>'+youid.mod+'</td></tr> ';
+       det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/cert#modulus">Modulus</a></td><td>'+youid.mod+'</td></tr> ';
     if (youid.delegate) {
        var href = youid.delegate?'<a href="'+youid.delegate+'" class="uri">'+youid.delegate+'</a>' : '';
-       det += '<tr class="dtext"><td>Delegate</td><td>'+href+'</td></tr> ';
+       det += '<tr class="dtext"><td><a href="http://www.openlinksw.com/schemas/cert#hasIdentityDelegate">Delegate</a></td><td>'+href+'</td></tr> ';
     }
     if (youid.pim) {
        var href = youid.pim?'<a href="'+youid.pim+'" class="uri">'+youid.pim+'</a>' : '';
-       det += '<tr class="dtext"><td>Storage</td><td>'+href+'</td></tr> ';
+       det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/pim/space#storage">Storage</a></td><td>'+href+'</td></tr> ';
     }
     if (youid.inbox) {
        var href = youid.inbox?'<a href="'+youid.inbox+'" class="uri">'+youid.inbox+'</a>' : '';
-       det += '<tr class="dtext"><td>Inbox</td><td>'+href+'</td></tr> ';
+       det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/ldp#inbox">Inbox</a></td><td>'+href+'</td></tr> ';
     }
 /***
   if (youid.acl && youid.acl.length>0) {
@@ -65,7 +65,25 @@ YouId_View.prototype = {
         var href = youid.behalfOf[i]?'<a href="'+youid.behalfOf[i]+'" class="uri">'+youid.behalfOf[i]+'</a>' : '';
         val += '<div>'+href+'</div>';
       }
-      det += '<tr class="dtext"><td>OnBehalfOf</td><td>'+val+'</td></tr> ';
+      det += '<tr class="dtext"><td><a href="http://www.openlinksw.com/schemas/cert#onBehalfOf">OnBehalfOf</a></td><td>'+val+'</td></tr> ';
+    }
+
+    if (youid.foaf_knows && youid.foaf_knows.length>0) {
+      var val = ""
+      for(var i=0; i< youid.foaf_knows.length; i++) {
+        var href = youid.foaf_knows[i]?'<a href="'+youid.foaf_knows[i]+'" class="uri">'+youid.foaf_knows[i]+'</a>' : '';
+        val += '<div>'+href+'</div>';
+      }
+      det += '<tr class="dtext"><td><a href="http://xmlns.com/foaf/0.1/knows">Knows</a></td><td>'+val+'</td></tr> ';
+    }
+
+    if (youid.acl && youid.acl.length>0) {
+      var val = ""
+      for(var i=0; i< youid.acl.length; i++) {
+        var href = youid.acl[i]?'<a href="'+youid.acl[i]+'" class="uri">'+youid.acl[i]+'</a>' : '';
+        val += '<div>'+href+'</div>';
+      }
+      det += '<tr class="dtext"><td><a href="http://www.w3.org/ns/auth/acl#delegates">Knows</a></td><td>'+val+'</td></tr> ';
     }
 
     var item = '\
@@ -87,11 +105,11 @@ YouId_View.prototype = {
            Details \
          </td> \
        </tr> \
-       <tr id="det_data" style="display:none"> \
+       <tr class="det_data" style="display:none"> \
          <td></td> \
          <td> \
            <table class="dettable" > \
-             <tr class="dtext"><td style="width:70px">PubKey</td><td >'+pubkey_uri+'</td> \
+             <tr class="dtext"><td style="width:70px"><a href="http://www.w3.org/ns/auth/cert#key">PubKey</a></td><td >'+pubkey_uri+'</td> \
              </tr> '+det+' \
            </table> \
          </td> \
@@ -129,7 +147,7 @@ YouId_View.prototype = {
   {
     var self = this;
     var s = this.create_youid_item(youid, sel);
-    $('#youid_list').append('<tr><td>'+s+'</td></tr>');
+    $('.youid_list').append('<tr><td>'+DOMPurify.sanitize(s,{SAFE_FOR_JQUERY: true, ADD_ATTR: ['mdata']})+'</td></tr>');
 
     $('.det_btn').not('.click-binded').click(function(e){ self.click_det(e)}).addClass('click-binded');
     $('.youid_chk').not('.click-binded').click(function(e){ self.select_youid_item(e)}).addClass('click-binded');
@@ -164,7 +182,8 @@ YouId_View.prototype = {
   click_det: function (e)
   {
     var el = $(e.target);
-    var det_data = el.parents('table#data').find('tr#det_data');
+
+    var det_data = el.parents('table.youid_item').find('tr.det_data');
     var is_visible = det_data.is(":visible");
     if (is_visible) {
       det_data.hide();
@@ -187,12 +206,12 @@ YouId_View.prototype = {
       for(var i=0; i < lst.length; i++) {
         if (lst[i] !== e.target) {
           lst[i].checked = false;
-          var tbl = $(lst[i]).parents('table#data');
+          var tbl = $(lst[i]).parents('table.youid_item');
           $(tbl).toggleClass("youid_checked", false);
         }
       }
 
-      var tbl = $(e.target).parents('table#data');
+      var tbl = $(e.target).parents('table.youid_item');
       $(tbl).toggleClass("youid_checked", true);
 
       if (this.is_popup) {
@@ -201,7 +220,7 @@ YouId_View.prototype = {
       }
     }
     else {
-      var tbl = $(e.target).parents('table#data');
+      var tbl = $(e.target).parents('table.youid_item');
       $(tbl).toggleClass("youid_checked", false);
     }
 
@@ -223,7 +242,7 @@ YouId_View.prototype = {
     var youid = null;
     try {
       var str = data.attr('mdata');
-      youid = $.parseJSON(decodeURI(str));
+      youid = JSON.parse(decodeURI(str));
     } catch(e) {
       console.log(e);
     }
@@ -247,7 +266,7 @@ YouId_View.prototype = {
     var youid = null;
     try {
       var str = data.attr('mdata');
-      youid = $.parseJSON(decodeURI(str));
+      youid = JSON.parse(decodeURI(str));
     } catch(e) {
       console.log(e);
     }
@@ -299,7 +318,7 @@ YouId_View.prototype = {
     });
     $("#verify_progress").show();
     $("#verify-msg").prop("textContent","");
-    $('#verify-data #row').remove();
+    $('#verify-tbl-place').children().remove();
 
     var loader = new YouID_Loader(this.showInfo, row);
     loader.verify_ID(uri, function (success, youid, msg, verify_data, row){ self.showVerifyDlg(success, youid, msg, verify_data, row)});
@@ -310,15 +329,15 @@ YouId_View.prototype = {
   {
     var pref_youid = "";
     var list = [];
-    var rows = $('#youid_list>tr');
+    var rows = $('.youid_list>tr');
     for(var i=0; i < rows.length; i++) {
       var r = $(rows[i]);
-      var checked = r.find('#chk').is(':checked');
+      var checked = r.find('.youid_chk').is(':checked');
 
       var youid = null;
       try {
         var str = r.find('table').attr("mdata");
-        youid = $.parseJSON(decodeURI(str));
+        youid = JSON.parse(decodeURI(str));
       } catch(e) {
         console.log(e);
       }
@@ -346,8 +365,8 @@ YouId_View.prototype = {
 
     $("#verify_progress").hide();
     $("#verify-msg").prop("textContent",msg);
-    $('#verify-data #row').remove();
-    $('#verify-data').append(verify_data);
+    $('#verify-tbl-place').children().remove();
+    $('#verify-tbl-place').append(DOMPurify.sanitize(verify_data));
 
     $("#verify-dlg").dialog( "option", "buttons",
       [
