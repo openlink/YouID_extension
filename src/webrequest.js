@@ -61,14 +61,7 @@ if (Browser.isChromeAPI)
 
 
 
-  Browser.api.runtime.onMessageExternal.addListener(
-    function(request, sender, sendResponse) {
-      if (request.getWebId) {
-        var v = setting.getValue("ext.youid.pref.id");
-        sendResponse({webid: v});
-      }
-    });
-
+  // iterace with YouID content script
   Browser.api.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (request.getWebId) {
         var pref_youid;

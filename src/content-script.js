@@ -1,4 +1,6 @@
 
+
+// iterate with another content scripts (now Dokieli)
 window.addEventListener("message", recvMessage, false);
 
 function recvMessage(event)
@@ -15,24 +17,18 @@ function recvMessage(event)
 
   if (ev_data && ev_data.getWebId) {
 
-    var pref_youid;     
-    try {
-      var v = localStorage.getItem("ext.youid.pref.id");
-      if (v)
-        pref_youid = JSON.parse(v);
-    } catch(e){}
-
-
-    Browser.api.runtime.sendMessage(null, 
-              { getWebId: true},
+    Browser.api.runtime.sendMessage({ getWebId: true},
               function (response) {
 //                 console.log(JSON.stringify(response, undefined, 2));
 
                  if (response.webid) {
                    var msg = '{"webid":"'+response.webid+'"}';
                    event.source.postMessage("youid_rc:"+msg, event.origin);
+                   window.postMessage('youid_rc:'+msg, "*");
                  }
 
               });
   }
 }
+
+
