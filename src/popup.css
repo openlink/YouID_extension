@@ -87,7 +87,7 @@ div.content_scroll {
 .copyright_right {
     position: absolute;
     right: 5px;
-    bottom: 3px;
+    bottom: 1px;
     color: gray;
     font-size: 10px;
 }

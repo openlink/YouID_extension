@@ -39,6 +39,7 @@ YouID_Loader = function (info_dlg, row) {
         ?webid cert:key ?pubkey . \
         ?pubkey cert:modulus ?mod .  \
         ?pubkey cert:exponent ?exponent . \
+        ?pubkey a ?alg . \
        }\
        {{?webid schema:name ?schema_name} UNION \
         {?webid foaf:name ?foaf_name} UNION \
@@ -126,7 +127,7 @@ YouID_Loader.prototype = {
                  return;
                }
 
-               var youid = { id: null, name: null, pubkey: null,
+               var youid = { id: null, name: null, alg: null, pubkey: null,
                      mod: null, exp: null, delegate: null,
                      acl: [], behalfOf: [], foaf_knows:[],
                      pim: null, inbox: null };
@@ -160,6 +161,8 @@ YouID_Loader.prototype = {
                    url = r.url.value;
                  if (r.pubkey)
                    youid.pubkey = r.pubkey.value;
+                 if (r.alg)
+                   youid.alg = r.alg.value;
                  if (r.mod)
                    youid.mod = r.mod.value;
                  if (r.exponent)
@@ -215,6 +218,7 @@ YouID_Loader.prototype = {
                verify_data += "<tr id='row'><td>WebID</td><td>"+youid.id+"</td></tr>";
                verify_data += "<tr id='row'><td>Name</td><td>"+youid.name+"</td></tr>";
                verify_data += "<tr id='row'><td>PubKey</td><td>"+youid.pubkey+"</td></tr>";
+               verify_data += "<tr id='row'><td>Algorithm</td><td>"+youid.alg+"</td></tr>";
                verify_data += "<tr id='row'><td>Modulus</td><td>"+youid.mod+"</td></tr>";
                verify_data += "<tr id='row'><td>Exponent</td><td>"+youid.exp+"</td></tr>";
                if (youid.delegate)

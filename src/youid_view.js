@@ -33,6 +33,11 @@ YouId_View.prototype = {
     var pubkey_uri = youid.pubkey?'<a href="'+youid.pubkey+'" class="uri">'+youid.pubkey+'</a>' : '';
 
     var det = "";
+
+    if (youid.alg) {
+       var href = youid.alg?'<a href="'+youid.alg+'" class="uri">'+youid.alg+'</a>' : '';
+       det += '<tr class="dtext"><td valign="top"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="uri">Algorithm</a></td><td>'+href+'</td></tr> ';
+    }
     if (youid.exp)
        det += '<tr class="dtext"><td valign="top"><a href="http://www.w3.org/ns/auth/cert#exponent" class="uri">Exponent</a></td><td>'+youid.exp+'</td></tr> ';
     if (youid.mod)
